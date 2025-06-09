@@ -1,28 +1,41 @@
-/// <reference types="vite/client" />
-
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    ...(process.env.NODE_ENV !== "production" &&
+    process.env.REPL_ID !== undefined
+      ? [
+          await import("@replit/vite-plugin-cartographer").then((m) =>
+            m.cartographer(),
+          ),
+        ]
+      : []),
+  ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
-    dedupe: ['@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
+  },
+  root: path.resolve(import.meta.dirname, "client"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true,
   },
   server: {
-    port: 3000,
-    open: true
+    port: 5000,
+    host: '127.0.0.1',
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+      },
+    },
   },
-  build: {
-    outDir: 'dist',
-    sourcemap: true,
-    minify: 'terser',
-    target: 'es2018'
-  },
-  optimizeDeps: {
-    include: ['@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
-  }
-}) 
+});

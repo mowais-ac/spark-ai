@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 262 83% 58%;
+  --radius: 0.75rem;
+  --gradient-from: 262 83% 58%;
+  --gradient-to: 240 5.9% 10%;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 262 83% 58%;
+  --gradient-from: 262 83% 58%;
+  --gradient-to: 240 3.7% 15.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: radial-gradient(circle at top left, 
+      hsl(var(--gradient-from)) 0%,
+      hsl(var(--background)) 50%,
+      hsl(var(--gradient-to)) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, hsl(var(--gradient-from)) 0%, hsl(var(--gradient-to)) 100%);
+  }
+
+  .glass-effect {
+    @apply bg-background/80 backdrop-blur-lg border border-border/50;
+  }
+
+  .glow-effect {
+    box-shadow: 0 0 20px hsl(var(--primary) / 30%);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 10px hsl(var(--primary) / 30%); }
+    50% { box-shadow: 0 0 20px hsl(var(--primary) / 60%); }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0; 
+      transform: scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(90deg, 
+      hsl(var(--primary) / 10%) 0%, 
+      hsl(var(--primary) / 30%) 50%, 
+      hsl(var(--primary) / 10%) 100%);
+    background-size: 200% 100%;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes bounceIn {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.3); 
+    }
+    50% { 
+      opacity: 1; 
+      transform: scale(1.05); 
+    }
+    70% { 
+      transform: scale(0.9); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+
+  .animate-typing {
+    animation: typing 3s steps(40, end) infinite;
+  }
+
+  @keyframes typing {
+    0% { width: 0; }
+    50% { width: 100%; }
+    100% { width: 0; }
+  }
+}
+
+@layer components {
+  .quiz-option {
+    @apply flex items-start space-x-4 p-5 border-2 border-border/50 rounded-xl hover:bg-muted/30 cursor-pointer transition-all duration-300;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quiz-option:has(input:checked) {
+    @apply border-primary bg-primary/15 glow-effect;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+    border-color: hsl(var(--primary));
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+  }
+  
+  .quiz-option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(124, 58, 237, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .quiz-card {
+    @apply glass-effect rounded-xl p-8;
+  }
+
+  .category-card {
+    @apply glass-effect rounded-lg p-4 transition-all duration-300 hover:scale-105;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  }
+
+  .gradient-header {
+    background: linear-gradient(135deg, hsl(var(--gradient-from)) 0%, hsl(var(--gradient-to)) 100%);
+  }
+
+  .floating-element {
+    @apply animate-float;
+  }
+}
