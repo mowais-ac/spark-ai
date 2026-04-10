@@ -2285,7 +2285,10 @@ function App() {
                     <HStack spacing={3}>
                       <Icon as={FaPhone} color="blue.400" boxSize={4} />
                       <Text fontSize="sm" color="gray.400">
-                        +971 4 XXX XXXX
+                        +971 04 339 2208
+                      </Text>
+                       <Text fontSize="sm" color="gray.400">
+                        +971 56 956 7693
                       </Text>
                     </HStack>
                     <HStack spacing={3}>
