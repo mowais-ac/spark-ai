@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/salesos",
+      "destination": "https://salesos.vercel.app/salesos"
+    },
+    {
+      "source": "/salesos/:path*",
+      "destination": "https://salesos.vercel.app/salesos/:path*"
+    }
+  ]
+}
